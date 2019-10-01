@@ -34,9 +34,6 @@ Client::Client() : kId(id_iterator_++)
 	time_start_waiter_ = 0;
 }
 
-Client::~Client()
-{
-}
 
 double Client::GetLastClientId()
 {

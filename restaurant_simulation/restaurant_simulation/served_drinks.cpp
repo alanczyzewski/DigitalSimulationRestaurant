@@ -11,10 +11,6 @@ ServedDrinks::ServedDrinks(Restaurant * restaurant, EventList * event_list, Clie
 	event_time_ = restaurant_->simulation_time_ + client_->GetTimeServiceDrinks();
 }
 
-
-ServedDrinks::~ServedDrinks()
-{}
-
 void ServedDrinks::Execute()
 {
 	restaurant_->AddToMealsQueue(client_);

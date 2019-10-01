@@ -15,8 +15,6 @@ ClientArrival::ClientArrival(Restaurant * restaurant, EventList * event_list)
 	client_ = new Client();
 }
 
-ClientArrival::~ClientArrival(){}
-
 void ClientArrival::Execute()
 {
 	/*

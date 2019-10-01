@@ -12,10 +12,6 @@ ConsumptionEnd::ConsumptionEnd(Restaurant * restaurant, EventList * event_list, 
 	event_time_ = restaurant_->simulation_time_ + client_->GetTimeConsumption();
 }
 
-
-ConsumptionEnd::~ConsumptionEnd()
-{}
-
 void ConsumptionEnd::Execute()
 {
 	/*

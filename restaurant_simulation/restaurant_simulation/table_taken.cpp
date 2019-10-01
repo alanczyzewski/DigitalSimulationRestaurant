@@ -13,8 +13,6 @@ TableTaken::TableTaken(Restaurant * restaurant, EventList * event_list, Client *
 	event_time_ = restaurant_->simulation_time_ + Generators::s_;
 }
 
-TableTaken::~TableTaken(){}
-
 void TableTaken::Execute()
 {
 	if(restaurant_->AddToDrinksQueue(client_)) //if waiter is free

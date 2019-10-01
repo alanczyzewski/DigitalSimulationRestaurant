@@ -12,7 +12,6 @@ class Event
 public:
 	Event() = default;
 	//Event(Restaurant *, EventList *);
-	//~Event();
 	void virtual Execute() = 0;
 	std::string GetName();
 	std::string event_name_;

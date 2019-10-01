@@ -12,8 +12,6 @@ BuffetServiceEnd::BuffetServiceEnd(Restaurant * restaurant, EventList * event_li
 	event_time_ = restaurant_->simulation_time_ + client_->GetTimeBuffet();
 }
 
-BuffetServiceEnd::~BuffetServiceEnd(){}
-
 void BuffetServiceEnd::Execute()
 {
 	/*

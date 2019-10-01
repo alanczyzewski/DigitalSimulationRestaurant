@@ -6,8 +6,6 @@ public:
 	double static  Uniform();   //Uniform generator
 	double static Exponential(double); //Exponential generator
 	double static Normal(const int average, const double variance);  //Gauss generator
-	Generators();
-	~Generators();
 
 	static int seed_;
 	//can't change

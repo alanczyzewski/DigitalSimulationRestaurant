@@ -32,7 +32,32 @@ Restaurant::Restaurant(EventList * event_list)
 	manager_free_ = true;
 }
 
-Restaurant::~Restaurant(){}
+Restaurant::~Restaurant()
+{
+	while (!(queue_buffet_->empty()))
+		queue_buffet_->pop_front();
+	delete queue_buffet_;
+
+	while (!(queue_checkout_->empty()))
+		queue_checkout_->pop_front();
+	delete queue_checkout_;
+
+	while (!(queue_table_->empty()))
+		queue_table_->pop_front();
+	delete queue_table_;
+
+	while (!(queue_waiter_->empty()))
+		queue_waiter_->pop_front();
+	delete queue_waiter_;
+
+	while (!(clients_->empty()))
+	{
+		Client *client = clients_->front();
+		clients_->pop_front();
+		delete client;
+	}
+	delete clients_;
+}
 
 void Restaurant::AddClientToSystem(Client* client)
 {

@@ -7,7 +7,6 @@ class ClientArrival : public Event
 {
 public:
 	ClientArrival(Restaurant *, EventList *);
-	~ClientArrival();
 	void Execute() override;
 
 };

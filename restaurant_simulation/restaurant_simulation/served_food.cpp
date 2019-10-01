@@ -12,9 +12,6 @@ ServedFood::ServedFood(Restaurant * restaurant, EventList * event_list, Client *
 	event_time_ = restaurant_->simulation_time_ + client_->GetTimeServiceMeals();
 }
 
-ServedFood::~ServedFood()
-{}
-
 void ServedFood::Execute()
 {
 	event_list_->AddToEventList(new ConsumptionEnd(restaurant_, event_list_, client_));

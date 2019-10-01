@@ -11,8 +11,6 @@ CheckoutServiceEnd::CheckoutServiceEnd(Restaurant * restaurant, EventList * even
 	event_time_ = restaurant_->simulation_time_ + client_->GetTimeCheckout();
 }
 
-CheckoutServiceEnd::~CheckoutServiceEnd(){}
-
 void CheckoutServiceEnd::Execute()
 {
 	/*

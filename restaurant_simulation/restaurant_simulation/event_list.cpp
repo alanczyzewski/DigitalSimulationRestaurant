@@ -11,6 +11,13 @@ EventList::EventList()
 
 EventList::~EventList()
 {
+	while (!(event_list_->empty()))
+	{
+		Event *event = event_list_->front();
+		event_list_->pop_front();
+		delete event;
+	}
+	delete event_list_;
 }
 
 void EventList::AddToEventList(Event* eve)

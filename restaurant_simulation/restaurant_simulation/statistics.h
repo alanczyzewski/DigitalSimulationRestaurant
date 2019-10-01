@@ -4,13 +4,12 @@
 class Statistics
 {
 public:
-	Statistics();
-	~Statistics();
 	static void AddTimeWaitingTable(double);
 	static void AddSizeQueueTable(double, bool);
 	static void AddTimeWaitingWaiter(double);
 	static void AddSizeQueueCheckout(double, bool);
 	static void ShowStatistics();
+	static void Reset(double);
 	static void SaveStatisticsToFile();
 
 	//average time waiting for table

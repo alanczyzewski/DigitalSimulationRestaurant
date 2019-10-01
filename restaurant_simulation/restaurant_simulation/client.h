@@ -4,7 +4,6 @@ class Client //class representing group of clients (1, 2, 3 or 4 people)
 {
 public:
 	Client();
-	~Client();
 	static double GetLastClientId();
 	double GetId();
 	int GetNumberPeople();
