@@ -100,9 +100,3 @@ void Statistics::Reset(double simulation_time)
 	sum_times_queue_checkout_ = 0;
 	reference_time_queue_checkout_ = simulation_time;
 }
-
-
-void Statistics::SaveStatisticsToFile()
-{
-	;
-}

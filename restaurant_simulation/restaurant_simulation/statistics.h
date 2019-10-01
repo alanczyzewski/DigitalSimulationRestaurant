@@ -10,7 +10,6 @@ public:
 	static void AddSizeQueueCheckout(double, bool);
 	static void ShowStatistics();
 	static void Reset(double);
-	static void SaveStatisticsToFile();
 
 	//average time waiting for table
 	static double average_time_waiting_table_;
