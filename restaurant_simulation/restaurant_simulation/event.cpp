@@ -1,13 +1,3 @@
 #include "stdafx.h"
 #include "event.h"
-
-
-//Event::Event(Restaurant *, EventList *){}
-
-
-std::string Event::GetName()
-{
-	return event_name_;
-}
-
-
+void Event::SetTime(double time) { event_time_ = restaurant_->GetTime() + time; }

@@ -156,6 +156,7 @@
     <ClInclude Include="event.h" />
     <ClInclude Include="event_list.h" />
     <ClInclude Include="generators.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="restaurant.h" />
     <ClInclude Include="served_drinks.h" />
     <ClInclude Include="served_food.h" />
@@ -186,6 +187,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="table_taken.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="restaurant_simulation.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

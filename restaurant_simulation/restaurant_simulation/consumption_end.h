@@ -3,7 +3,7 @@
 class ConsumptionEnd : public Event
 {
 public:
-	ConsumptionEnd(Restaurant *, EventList *, Client *);
+	ConsumptionEnd(Restaurant &, Client *);
 	void Execute() override;
 };
 

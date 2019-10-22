@@ -3,17 +3,13 @@
 #include "consumption_end.h"
 
 
-ServedFood::ServedFood(Restaurant * restaurant, EventList * event_list, Client * client)
+ServedFood::ServedFood(Restaurant & restaurant, Client * client) : Event("ServedDrinks", restaurant, client)
 {
-	restaurant_ = restaurant;
-	event_list_ = event_list;
-	client_ = client;
-	event_name_ = "ServedFood";
-	event_time_ = restaurant_->simulation_time_ + client_->GetTimeServiceMeals();
+	SetTime(GetClient()->GetTimeServiceMeals());
 }
 
 void ServedFood::Execute()
 {
-	event_list_->AddToEventList(new ConsumptionEnd(restaurant_, event_list_, client_));
-	restaurant_->StartConsumption(client_);
+	GetRestaurant()->GetEventList()->AddToEventList(new ConsumptionEnd(*GetRestaurant(), GetClient()));
+	GetRestaurant()->StartConsumption(GetClient());
 }

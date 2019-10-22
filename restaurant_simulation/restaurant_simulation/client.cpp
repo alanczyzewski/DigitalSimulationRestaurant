@@ -3,9 +3,9 @@
 #include "generators.h"
 #include <iostream>
 
-double Client::id_iterator_ = 1;
+double Client::id_iterator_ = 0;
 
-Client::Client() : kId(id_iterator_++)
+Client::Client() : kId(++id_iterator_)
 {
 	double random = Generators::Uniform();
 	if (random <= Generators::p1_)
@@ -35,70 +35,6 @@ Client::Client() : kId(id_iterator_++)
 }
 
 
-double Client::GetLastClientId()
-{
-	return id_iterator_ - 1;
-}
-
-double Client::GetId()
-{
-	return kId;
-}
-
-int Client::GetNumberPeople()
-{
-	return number_people_;
-}
-
-int Client::GetNumberSeats()
-{
-	return number_seats_at_table_;
-}
-
-void Client::SetNumberSeats(int seats)
-{
-	number_seats_at_table_ = seats;
-}
-
-bool Client::GetServedDrinks()
-{
-	return served_drinks_;
-}
-
-void Client::SetServedDrinks()
-{
-	served_drinks_ = true;
-}
-
-bool Client::GetRunAway()
-{
-	return run_away_;
-}
-
-int Client::GetTimeBuffet()
-{
-	return time_buffet_;
-}
-
-int Client::GetTimeCheckout()
-{
-	return  time_checkout_;
-}
-
-int Client::GetTimeConsumption()
-{
-	return time_consumption_;
-}
-
-int Client::GetTimeServiceDrinks()
-{
-	return time_service_drinks_;
-}
-
-int Client::GetTimeServiceMeals()
-{
-	return time_service_meals_;
-}
 /*
 void Client::ShowInfo()
 {
@@ -116,23 +52,3 @@ void Client::ShowInfo()
 
 }
 */
-
-void Client::SetStartTimeTable(double v)
-{
-	time_start_table_ = v;
-}
-
-double Client::GetStartTimeTable()
-{
-	return time_start_table_;
-}
-
-void Client::SetStartTimeWaiter(double v)
-{
-	time_start_waiter_ = v;
-}
-
-double Client::GetStartTimeWaiter()
-{
-	return time_start_waiter_;
-}

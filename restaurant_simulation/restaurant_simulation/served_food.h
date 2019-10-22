@@ -3,7 +3,7 @@
 class ServedFood : public Event
 {
 public:
-	ServedFood(Restaurant *, EventList *, Client *);
+	ServedFood(Restaurant &, Client *);
 	void Execute() override;
 };
 

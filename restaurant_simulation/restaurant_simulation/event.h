@@ -10,14 +10,18 @@ class EventList;
 class Event
 {
 public:
-	Event() = default;
-	//Event(Restaurant *, EventList *);
-	void virtual Execute() = 0;
-	std::string GetName();
+	Event(std::string name, Restaurant & restaurant, Client * client = nullptr) : event_name_(name), restaurant_(&restaurant), client_(client) {}
+	virtual ~Event() {}
+	virtual void Execute() = 0;
+	std::string GetName() const { return event_name_; }
+	double GetTime() const { return event_time_; }
+	void SetTime(double time); //{ event_time_ = restaurant_->GetTime() + time; }
+	Restaurant * GetRestaurant() { return restaurant_; }
+	Client * GetClient() const { return client_; }
+private:
 	std::string event_name_;
 	double event_time_;
 	Restaurant * restaurant_;
-	EventList * event_list_;
 	Client * client_;
 };
 

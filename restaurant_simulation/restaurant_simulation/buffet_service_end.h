@@ -7,7 +7,7 @@
 class BuffetServiceEnd : public Event
 {
 public:
-	BuffetServiceEnd(Restaurant *,EventList *,Client *);
+	BuffetServiceEnd(Restaurant &, Client *);
 	void Execute() override;
 };
 

@@ -27,7 +27,7 @@ void EventList::AddToEventList(Event* eve)
 		it_ = event_list_->begin();
 		while (it_ != event_list_->end())
 		{
-			if (eve->event_time_ < (*it_)->event_time_)
+			if (eve->GetTime() < (*it_)->GetTime())
 				break;
 			else
 				std::advance(it_, 1);
@@ -50,9 +50,9 @@ void EventList::ShowEventList()
 	{
 		for (auto &i : *event_list_)
 		{
-			cout << "Time: " << i->event_time_ << ", Name: " << i->event_name_;
-			if (i->event_name_ != "AlarmRang")
-				cout << ", Client ID: " << i->client_->GetId() << ", Run away? " << (i->client_->GetRunAway() ? "YES" : "NO");
+			cout << "Time: " << i->GetTime() << ", Name: " << i->GetName();
+			if (i->GetClient())
+				cout << ", Client ID: " << i->GetClient()->GetId() << ", Run away? " << (i->GetClient()->GetRunAway() ? "YES" : "NO");
 			cout << endl;	
 		}
 	}
@@ -84,7 +84,7 @@ Event * EventList::DeleteEvent(Client* client)
 	for (auto it = event_list_->begin(); it != event_list_->end();)
 	{
 		++it; //because first event on the list is AlarmRang
-		if ((*it)->client_ == client)
+		if ((*it)->GetClient() == client)
 		{
 			event = *it;
 			event_list_->erase(it); //delete event from list

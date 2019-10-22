@@ -3,17 +3,14 @@
 #include "generators.h"
 
 
-AlarmRang::AlarmRang(Restaurant * restaurant, EventList * event_list)
+AlarmRang::AlarmRang(Restaurant & restaurant) : Event("AlarmRang", restaurant)
 {
-	restaurant_ = restaurant;
-	event_list_ = event_list;
-	event_name_ = "AlarmRang";
-	event_time_ = restaurant_->simulation_time_ + Generators::Normal(Generators::mi_e_, Generators::sigma_e_);
+	SetTime(Generators::Normal(Generators::mi_e_, Generators::sigma_e_));
 }
 
 
 void AlarmRang::Execute()
 {
-	restaurant_->Alarm();
-	event_list_->AddToEventList(new AlarmRang(restaurant_, event_list_));
+	GetRestaurant()->Alarm();
+	GetRestaurant()->GetEventList()->AddToEventList(new AlarmRang(*GetRestaurant()));
 }

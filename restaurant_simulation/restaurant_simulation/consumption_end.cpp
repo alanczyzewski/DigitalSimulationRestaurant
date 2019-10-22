@@ -3,13 +3,9 @@
 #include "checkout_service_end.h"
 
 
-ConsumptionEnd::ConsumptionEnd(Restaurant * restaurant, EventList * event_list, Client * client)
+ConsumptionEnd::ConsumptionEnd(Restaurant & restaurant, Client * client) : Event("ConsumptionEnd", restaurant, client)
 {
-	restaurant_ = restaurant;
-	event_list_ = event_list;
-	client_ = client;
-	event_name_ = "ConsumptionEnd";
-	event_time_ = restaurant_->simulation_time_ + client_->GetTimeConsumption();
+	SetTime(GetClient()->GetTimeConsumption());
 }
 
 void ConsumptionEnd::Execute()
@@ -33,10 +29,10 @@ void ConsumptionEnd::Execute()
 	}
 	*/
 	//1
-	restaurant_->DeleteClientFromTable(client_);
+	GetRestaurant()->DeleteClientFromTable(GetClient());
 	//2
-	if (restaurant_->AddToCheckoutQueue(client_))
+	if (GetRestaurant()->AddToCheckoutQueue(GetClient()))
 	{
-		event_list_->AddToEventList(new CheckoutServiceEnd(restaurant_, event_list_, client_));
+		GetRestaurant()->GetEventList()->AddToEventList(new CheckoutServiceEnd(*GetRestaurant(), GetClient()));
 	}
 }

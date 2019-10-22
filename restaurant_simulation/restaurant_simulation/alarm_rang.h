@@ -3,7 +3,7 @@
 class AlarmRang : public Event
 {
 public:
-	AlarmRang(Restaurant *, EventList *);
+	AlarmRang(Restaurant &);
 	void Execute() override;
 };
 

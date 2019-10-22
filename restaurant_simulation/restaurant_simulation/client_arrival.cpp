@@ -6,13 +6,9 @@
 #include "statistics.h"
 
 
-ClientArrival::ClientArrival(Restaurant * restaurant, EventList * event_list)
+ClientArrival::ClientArrival(Restaurant & restaurant) : Event("ClientArrival", restaurant, new Client())
 {
-	restaurant_ = restaurant;
-	event_list_ = event_list;
-	event_name_ = "ClientArrival";
-	event_time_ = restaurant_->simulation_time_ + Generators::Normal(Generators::mi_a_, Generators::sigma_a_);
-	client_ = new Client();
+	SetTime(Generators::Normal(Generators::mi_a_, Generators::sigma_a_));
 }
 
 void ClientArrival::Execute()
@@ -25,25 +21,24 @@ void ClientArrival::Execute()
 	3. Plan new event (ClientArrival)
 	*/
 	//1
-
-	restaurant_->AddClientToSystem(client_);
+	GetRestaurant()->AddClientToSystem(GetClient());
 	//2
 	double random = Generators::Uniform();
 	if (random < 0.5) //buffet
 	{
-		if (restaurant_->AddToBuffetQueue(client_)) //if true: client went to buffet, not queue
+		if (GetRestaurant()->AddToBuffetQueue(GetClient())) //if true: client went to buffet, not queue
 		{
-			event_list_->AddToEventList(new BuffetServiceEnd(restaurant_, event_list_, client_));
+			GetRestaurant()->GetEventList()->AddToEventList(new BuffetServiceEnd(*GetRestaurant(), GetClient()));
 		}
 	}
 	else //tables
 	{
-		if (restaurant_->AddToTableQueue(client_)) //if true: client went to table, not queue
+		if (GetRestaurant()->AddToTableQueue(GetClient())) //if true: client went to table, not queue
 		{
 			Statistics::AddTimeWaitingTable(0);
-			event_list_->AddToEventList(new TableTaken(restaurant_, event_list_, client_));
+			GetRestaurant()->GetEventList()->AddToEventList(new TableTaken(*GetRestaurant(), GetClient()));
 		}
 	}
 	//3
-	event_list_->AddToEventList(new ClientArrival(restaurant_, event_list_));
+	GetRestaurant()->GetEventList()->AddToEventList(new ClientArrival(*GetRestaurant()));
 }

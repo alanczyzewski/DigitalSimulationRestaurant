@@ -6,6 +6,9 @@ class Event;
 class Client;
 class EventList
 {
+private:
+	std::list<Event *> *event_list_;
+	std::list<Event *>::iterator it_;
 public:
 	EventList();
 	~EventList();
@@ -14,7 +17,5 @@ public:
 	Event * First();
 	void DeleteFirst();
 	Event * DeleteEvent(Client *);
-	std::list<Event *> *event_list_;
-	std::list<Event *>::iterator it_;
 };
 

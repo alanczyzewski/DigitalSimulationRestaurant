@@ -2,16 +2,12 @@
 #include "served_drinks.h"
 
 
-ServedDrinks::ServedDrinks(Restaurant * restaurant, EventList * event_list, Client * client)
+ServedDrinks::ServedDrinks(Restaurant & restaurant, Client * client) : Event("ServedDrinks", restaurant, client)
 {
-	restaurant_ = restaurant;
-	event_list_ = event_list;
-	client_ = client;
-	event_name_ = "ServedDrinks";
-	event_time_ = restaurant_->simulation_time_ + client_->GetTimeServiceDrinks();
+	SetTime(GetClient()->GetTimeServiceDrinks());
 }
 
 void ServedDrinks::Execute()
 {
-	restaurant_->AddToMealsQueue(client_);
+	GetRestaurant()->AddToMealsQueue(GetClient());
 }

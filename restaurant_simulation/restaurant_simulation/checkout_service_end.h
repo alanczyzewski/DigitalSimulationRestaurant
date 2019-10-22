@@ -3,7 +3,7 @@
 class CheckoutServiceEnd : public Event
 {
 public:
-	CheckoutServiceEnd(Restaurant *, EventList *, Client *);
+	CheckoutServiceEnd(Restaurant &, Client *);
 	void Execute() override;
 };
 

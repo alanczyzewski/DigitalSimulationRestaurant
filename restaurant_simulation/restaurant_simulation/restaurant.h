@@ -5,12 +5,19 @@
 #include "generators.h"
 
 class EventList;
-
 class Restaurant
 {
+private:
+	double simulation_time_;
+	EventList * event_list_;
 public:
-	Restaurant(EventList *);
+	Restaurant();
 	~Restaurant();
+	void StartSimulation();
+	double GetTime() { return simulation_time_; }
+	void SetTime();
+	EventList * GetEventList();
+
 	void AddClientToSystem(Client * client);
 	bool AddToBuffetQueue(Client * client);
 	void DeleteClientFromBuffet(Client * client);
@@ -27,19 +34,17 @@ public:
 	void DeleteClientFromTable(Client * client);
 	void AddClientToTable();
 	Client * ClientToAddTable();
-	double simulation_time_;
 	void Alarm();
 	bool DeleteClientFromEvent(Client *);
 	bool DeleteClientFromQueue(Client *);
 
 	void ShowState();
-	int GetNumberPeople();
-	int GetSizeQueueTable();
-	int GetSizeQueueCheckout();
+	int GetNumberPeople() { return clients_->size(); }
+	int GetSizeQueueTable() { return queue_table_->size(); }
+	int GetSizeQueueCheckout() { return queue_checkout_->size(); }
 
 	void Show();
 private:
-	EventList * event_list_;
 
 	std::list<Client*> * clients_; //all clients currently located in restaurant
 

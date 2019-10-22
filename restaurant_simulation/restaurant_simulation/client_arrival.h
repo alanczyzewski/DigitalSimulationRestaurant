@@ -6,8 +6,7 @@
 class ClientArrival : public Event
 {
 public:
-	ClientArrival(Restaurant *, EventList *);
+	ClientArrival(Restaurant &);
 	void Execute() override;
-
 };
 

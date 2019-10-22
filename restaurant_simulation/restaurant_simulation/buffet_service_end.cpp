@@ -3,13 +3,9 @@
 #include "checkout_service_end.h"
 
 
-BuffetServiceEnd::BuffetServiceEnd(Restaurant * restaurant, EventList * event_list, Client * client)
+BuffetServiceEnd::BuffetServiceEnd(Restaurant & restaurant, Client * client) : Event("BuffetServiceEnd", restaurant, client)
 {
-	restaurant_ = restaurant;
-	event_list_ = event_list;
-	client_ = client;
-	event_name_ = "BuffetServiceEnd";
-	event_time_ = restaurant_->simulation_time_ + client_->GetTimeBuffet();
+	SetTime(GetClient()->GetTimeBuffet());
 }
 
 void BuffetServiceEnd::Execute()
@@ -20,12 +16,12 @@ void BuffetServiceEnd::Execute()
 	3. Place the client at the end of the queue to the checkout.
 	*/
 	//1
-	restaurant_->DeleteClientFromBuffet(client_);
+	GetRestaurant()->DeleteClientFromBuffet(GetClient());
 	//2
-	restaurant_->AddToBuffetIfPossible();
+	GetRestaurant()->AddToBuffetIfPossible();
 	//3
-	if(restaurant_->AddToCheckoutQueue(client_))
+	if(GetRestaurant()->AddToCheckoutQueue(GetClient()))
 	{
-		event_list_->AddToEventList(new CheckoutServiceEnd(restaurant_, event_list_, client_));
+		GetRestaurant()->GetEventList()->AddToEventList(new CheckoutServiceEnd(*GetRestaurant(), GetClient()));
 	}
 }
