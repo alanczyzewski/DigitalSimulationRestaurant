@@ -5,7 +5,7 @@
 
 ConsumptionEnd::ConsumptionEnd(Restaurant & restaurant, Client * client) : Event("ConsumptionEnd", restaurant, client)
 {
-	SetTime(GetClient()->GetTimeConsumption());
+	SetTime(client_->GetTimeConsumption());
 }
 
 void ConsumptionEnd::Execute()
@@ -29,10 +29,10 @@ void ConsumptionEnd::Execute()
 	}
 	*/
 	//1
-	GetRestaurant()->DeleteClientFromTable(GetClient());
+	restaurant_->DeleteClientFromTable(client_);
 	//2
-	if (GetRestaurant()->AddToCheckoutQueue(GetClient()))
+	if (restaurant_->AddToCheckoutQueue(client_))
 	{
-		GetRestaurant()->GetEventList()->AddToEventList(new CheckoutServiceEnd(*GetRestaurant(), GetClient()));
+		restaurant_->GetEventList()->AddToEventList(new CheckoutServiceEnd(*restaurant_, client_));
 	}
 }

@@ -5,11 +5,11 @@
 
 ServedFood::ServedFood(Restaurant & restaurant, Client * client) : Event("ServedDrinks", restaurant, client)
 {
-	SetTime(GetClient()->GetTimeServiceMeals());
+	SetTime(client_->GetTimeServiceMeals());
 }
 
 void ServedFood::Execute()
 {
-	GetRestaurant()->GetEventList()->AddToEventList(new ConsumptionEnd(*GetRestaurant(), GetClient()));
-	GetRestaurant()->StartConsumption(GetClient());
+	restaurant_->GetEventList()->AddToEventList(new ConsumptionEnd(*restaurant_, client_));
+	restaurant_->StartConsumption(client_);
 }

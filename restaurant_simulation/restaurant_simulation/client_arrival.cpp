@@ -8,7 +8,7 @@
 
 ClientArrival::ClientArrival(Restaurant & restaurant) : Event("ClientArrival", restaurant, new Client())
 {
-	SetTime(Generators::Normal(Generators::mi_a_, Generators::sigma_a_));
+	SetTime(generators::Normal(generators::mi_a_, generators::sigma_a_));
 }
 
 void ClientArrival::Execute()
@@ -21,24 +21,24 @@ void ClientArrival::Execute()
 	3. Plan new event (ClientArrival)
 	*/
 	//1
-	GetRestaurant()->AddClientToSystem(GetClient());
+	restaurant_->AddClientToSystem(client_);
 	//2
-	double random = Generators::Uniform();
+	double random = generators::Uniform();
 	if (random < 0.5) //buffet
 	{
-		if (GetRestaurant()->AddToBuffetQueue(GetClient())) //if true: client went to buffet, not queue
+		if (restaurant_->AddToBuffetQueue(client_)) //if true: client went to buffet, not queue
 		{
-			GetRestaurant()->GetEventList()->AddToEventList(new BuffetServiceEnd(*GetRestaurant(), GetClient()));
+			restaurant_->GetEventList()->AddToEventList(new BuffetServiceEnd(*restaurant_, client_));
 		}
 	}
 	else //tables
 	{
-		if (GetRestaurant()->AddToTableQueue(GetClient())) //if true: client went to table, not queue
+		if (restaurant_->AddToTableQueue(client_)) //if true: client went to table, not queue
 		{
-			Statistics::AddTimeWaitingTable(0);
-			GetRestaurant()->GetEventList()->AddToEventList(new TableTaken(*GetRestaurant(), GetClient()));
+			statistics::AddTimeWaitingTable(0);
+			restaurant_->GetEventList()->AddToEventList(new TableTaken(*restaurant_, client_));
 		}
 	}
 	//3
-	GetRestaurant()->GetEventList()->AddToEventList(new ClientArrival(*GetRestaurant()));
+	restaurant_->GetEventList()->AddToEventList(new ClientArrival(*restaurant_));
 }

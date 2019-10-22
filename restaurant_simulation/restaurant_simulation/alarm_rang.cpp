@@ -5,12 +5,12 @@
 
 AlarmRang::AlarmRang(Restaurant & restaurant) : Event("AlarmRang", restaurant)
 {
-	SetTime(Generators::Normal(Generators::mi_e_, Generators::sigma_e_));
+	SetTime(generators::Normal(generators::mi_e_, generators::sigma_e_));
 }
 
 
 void AlarmRang::Execute()
 {
-	GetRestaurant()->Alarm();
-	GetRestaurant()->GetEventList()->AddToEventList(new AlarmRang(*GetRestaurant()));
+	restaurant_->Alarm();
+	restaurant_->GetEventList()->AddToEventList(new AlarmRang(*GetRestaurant()));
 }

@@ -5,7 +5,7 @@
 
 BuffetServiceEnd::BuffetServiceEnd(Restaurant & restaurant, Client * client) : Event("BuffetServiceEnd", restaurant, client)
 {
-	SetTime(GetClient()->GetTimeBuffet());
+	SetTime(client_->GetTimeBuffet());
 }
 
 void BuffetServiceEnd::Execute()
@@ -16,12 +16,12 @@ void BuffetServiceEnd::Execute()
 	3. Place the client at the end of the queue to the checkout.
 	*/
 	//1
-	GetRestaurant()->DeleteClientFromBuffet(GetClient());
+	restaurant_->DeleteClientFromBuffet(GetClient());
 	//2
-	GetRestaurant()->AddToBuffetIfPossible();
+	restaurant_->AddToBuffetIfPossible();
 	//3
-	if(GetRestaurant()->AddToCheckoutQueue(GetClient()))
+	if(restaurant_->AddToCheckoutQueue(GetClient()))
 	{
-		GetRestaurant()->GetEventList()->AddToEventList(new CheckoutServiceEnd(*GetRestaurant(), GetClient()));
+		restaurant_->GetEventList()->AddToEventList(new CheckoutServiceEnd(*GetRestaurant(), GetClient()));
 	}
 }

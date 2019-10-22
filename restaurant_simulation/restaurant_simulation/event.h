@@ -6,22 +6,25 @@
 
 class Restaurant;
 class EventList;
-
 class Event
 {
 public:
 	Event(std::string name, Restaurant & restaurant, Client * client = nullptr) : event_name_(name), restaurant_(&restaurant), client_(client) {}
 	virtual ~Event() {}
 	virtual void Execute() = 0;
-	std::string GetName() const { return event_name_; }
-	double GetTime() const { return event_time_; }
-	void SetTime(double time); //{ event_time_ = restaurant_->GetTime() + time; }
+	void SetTime(double time);
 	Restaurant * GetRestaurant() { return restaurant_; }
 	Client * GetClient() const { return client_; }
-private:
+	friend bool operator<(const Event &, const Event &);
+	friend bool operator>(const Event &, const Event &);
+	friend std::ostream & operator<<(std::ostream &, const Event &);
+	operator double() { return event_time_; }
+	operator std::string() { return event_name_; }
+protected:
 	std::string event_name_;
 	double event_time_;
 	Restaurant * restaurant_;
 	Client * client_;
 };
+
 

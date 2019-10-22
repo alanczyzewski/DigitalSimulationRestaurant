@@ -27,7 +27,7 @@ void EventList::AddToEventList(Event* eve)
 		it_ = event_list_->begin();
 		while (it_ != event_list_->end())
 		{
-			if (eve->GetTime() < (*it_)->GetTime())
+			if (*eve < **(it_))
 				break;
 			else
 				std::advance(it_, 1);
@@ -47,19 +47,10 @@ void EventList::ShowEventList()
 	using std::endl;
 	cout << "Event List:\n";
 	if (!(event_list_->empty()))
-	{
 		for (auto &i : *event_list_)
-		{
-			cout << "Time: " << i->GetTime() << ", Name: " << i->GetName();
-			if (i->GetClient())
-				cout << ", Client ID: " << i->GetClient()->GetId() << ", Run away? " << (i->GetClient()->GetRunAway() ? "YES" : "NO");
-			cout << endl;	
-		}
-	}
+			cout << *i << endl;
 	else
-	{
 		cout << "EMPTY\n";
-	}
 }
 
 Event* EventList::First()

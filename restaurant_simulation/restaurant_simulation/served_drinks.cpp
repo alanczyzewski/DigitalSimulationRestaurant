@@ -4,10 +4,10 @@
 
 ServedDrinks::ServedDrinks(Restaurant & restaurant, Client * client) : Event("ServedDrinks", restaurant, client)
 {
-	SetTime(GetClient()->GetTimeServiceDrinks());
+	SetTime(client_->GetTimeServiceDrinks());
 }
 
 void ServedDrinks::Execute()
 {
-	GetRestaurant()->AddToMealsQueue(GetClient());
+	restaurant_->AddToMealsQueue(client_);
 }

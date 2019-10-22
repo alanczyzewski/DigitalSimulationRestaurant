@@ -1,40 +1,40 @@
 #pragma once
 #include <vector>
 
-class Statistics
+namespace statistics
 {
-public:
-	static void AddTimeWaitingTable(double);
-	static void AddSizeQueueTable(double, bool);
-	static void AddTimeWaitingWaiter(double);
-	static void AddSizeQueueCheckout(double, bool);
-	static void ShowStatistics();
-	static void Reset(double);
 
 	//average time waiting for table
-	static double average_time_waiting_table_;
-	static double sum_times_waiting_table_;
-	static double number_times_waiting_table_;
+	static double average_time_waiting_table_ = 0;
+	static double sum_times_waiting_table_ = 0;
+	static double number_times_waiting_table_ = 0;
 	//average size of queue to table
-	static double average_size_queue_table_;
-	static double sum_times_queue_table_;
-	static double weighted_sum_times_queue_table_;
-	static double current_size_queue_table_;
-	static double max_size_queue_table_;
-	static double reference_time_queue_table_;
+	static double average_size_queue_table_ = 0;
+	static double sum_times_queue_table_ = 0;
+	static double weighted_sum_times_queue_table_ = 0;
+	static double current_size_queue_table_ = 0;
+	static double max_size_queue_table_ = 0;
+	static double reference_time_queue_table_ = 0;
 	//average time waiting for waiter	
-	static double average_time_waiting_waiter_;
-	static double sum_times_waiting_waiter_;
-	static double number_times_waiting_waiter_;
+	static double average_time_waiting_waiter_ = 0;
+	static double sum_times_waiting_waiter_ = 0;
+	static double number_times_waiting_waiter_ = 0;
 	//average size of queue to checkout	
-	static double average_size_queue_checkout_;
-	static double sum_times_queue_checkout_;
-	static double weighted_sum_times_queue_checkout_;
-	static double current_size_queue_checkout_;
-	static double max_size_queue_checkout_;
-	static double reference_time_queue_checkout_;
+	static double average_size_queue_checkout_ = 0;
+	static double sum_times_queue_checkout_ = 0;
+	static double weighted_sum_times_queue_checkout_ = 0;
+	static double current_size_queue_checkout_ = 0;
+	static double max_size_queue_checkout_ = 0;
+	static double reference_time_queue_checkout_ = 0;
 	//average number of clients
-	static double average_number_clients_;
+	//double average_number_clients_;
 
-};
+	void AddTimeWaitingTable(double);
+	void AddSizeQueueTable(double, bool);
+	void AddTimeWaitingWaiter(double);
+	void AddSizeQueueCheckout(double, bool);
+	void ShowStatistics();
+	void Reset(double);
+
+}
 

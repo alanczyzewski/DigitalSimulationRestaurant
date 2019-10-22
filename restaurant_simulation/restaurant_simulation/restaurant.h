@@ -7,9 +7,6 @@
 class EventList;
 class Restaurant
 {
-private:
-	double simulation_time_;
-	EventList * event_list_;
 public:
 	Restaurant();
 	~Restaurant();
@@ -45,20 +42,20 @@ public:
 
 	void Show();
 private:
-
+	double simulation_time_;
+	EventList * event_list_;
 	std::list<Client*> * clients_; //all clients currently located in restaurant
-
 	std::list<Client*> * queue_buffet_;
 	std::list<Client*> * queue_checkout_;
 	std::list<Client*> * queue_table_;
 	std::list<Client*> * queue_waiter_; //clients waiting for waiter
 
-	const int kBuffetSeats = Generators::b_;
-	const int kNumberTables2 = Generators::n2_; // (2-person)
-	const int kNumberTables3 = Generators::n3_;; // (3-person)
-	const int kNumberTables4 = Generators::n4_;; // (4-person) 
-	const int kNumberWaiters = Generators::w_;
-	const int kNumberCheckouts = Generators::c_;
+	const int kBuffetSeats = generators::b_;
+	const int kNumberTables2 = generators::n2_; // (2-person)
+	const int kNumberTables3 = generators::n3_;; // (3-person)
+	const int kNumberTables4 = generators::n4_;; // (4-person) 
+	const int kNumberWaiters = generators::w_;
+	const int kNumberCheckouts = generators::c_;
 
 	int buffet_free_seats_;
 	int free_tables_[3]; //sequentially: 2-person, 3-person, 4-person

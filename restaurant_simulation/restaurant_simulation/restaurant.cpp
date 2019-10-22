@@ -67,7 +67,7 @@ void Restaurant::StartSimulation()
 
 void Restaurant::SetTime() 
 { 
-	simulation_time_ = event_list_->First()->GetTime(); 
+	simulation_time_ = *(event_list_->First()); 
 }
 
 EventList * Restaurant::GetEventList()
@@ -131,8 +131,8 @@ bool Restaurant::AddToCheckoutQueue(Client* client)
 		return true;
 	}
 	queue_checkout_->push_back(client);
-	Statistics::AddSizeQueueCheckout(simulation_time_ - Statistics::reference_time_queue_checkout_, true); //statistics
-	Statistics::reference_time_queue_checkout_ = simulation_time_;
+	statistics::AddSizeQueueCheckout(simulation_time_ - statistics::reference_time_queue_checkout_, true); //statistics
+	statistics::reference_time_queue_checkout_ = simulation_time_;
 	return false;
 }
 
@@ -159,8 +159,8 @@ void Restaurant::AddToCheckoutIfPossible()
 	{
 		client = queue_checkout_->front(); //assign first client
 		queue_checkout_->pop_front(); //delete client from queue
-		Statistics::AddSizeQueueCheckout(simulation_time_ - Statistics::reference_time_queue_checkout_, false); //statistics
-		Statistics::reference_time_queue_checkout_ = simulation_time_; //statistics
+		statistics::AddSizeQueueCheckout(simulation_time_ - statistics::reference_time_queue_checkout_, false); //statistics
+		statistics::reference_time_queue_checkout_ = simulation_time_; //statistics
 		free_checkouts_--; // reduce number of free checkouts
 		event_list_->AddToEventList(new CheckoutServiceEnd(*this, client));
 	}
@@ -189,8 +189,8 @@ bool Restaurant::AddToTableQueue(Client* client)
 	//2. Place client in the queue
 	queue_table_->push_back(client);
 	client->SetStartTimeTable(simulation_time_); //statistics
-	Statistics::AddSizeQueueTable(simulation_time_ - Statistics::reference_time_queue_table_, true); //statistics
-	Statistics::reference_time_queue_table_ = simulation_time_;
+	statistics::AddSizeQueueTable(simulation_time_ - statistics::reference_time_queue_table_, true); //statistics
+	statistics::reference_time_queue_table_ = simulation_time_;
 	return false;
 }
 
@@ -229,7 +229,7 @@ void Restaurant::ServiceFirstClient()
 		}
 		else
 		{
-			Statistics::AddTimeWaitingWaiter(simulation_time_ - client->GetStartTimeWaiter()); //statistics
+			statistics::AddTimeWaitingWaiter(simulation_time_ - client->GetStartTimeWaiter()); //statistics
 			event_list_->AddToEventList(new ServedDrinks(*this, client));
 		}
 	}
@@ -258,13 +258,13 @@ void Restaurant::AddClientToTable()
 			if ((*it)->GetId() == client->GetId())
 			{
 				queue_table_->erase(it); //delete from list
-				Statistics::AddSizeQueueTable(simulation_time_ - Statistics::reference_time_queue_table_, false); //statistics
-				Statistics::reference_time_queue_table_ = simulation_time_;
+				statistics::AddSizeQueueTable(simulation_time_ - statistics::reference_time_queue_table_, false); //statistics
+				statistics::reference_time_queue_table_ = simulation_time_;
 				break;
 			}
 		}
 		manager_free_ = false;
-		Statistics::AddTimeWaitingTable(simulation_time_ - client->GetStartTimeTable());//statistics
+		statistics::AddTimeWaitingTable(simulation_time_ - client->GetStartTimeTable());//statistics
 		event_list_->AddToEventList(new TableTaken(*this, client));
 	}
 }
@@ -398,7 +398,7 @@ bool Restaurant::DeleteClientFromEvent(Client* client)
 	event = event_list_->DeleteEvent(client);
 	if (event == nullptr)
 		return false;
-	name = event->GetName();
+	name = *event;
 	if (name == "TableTaken")
 	{
 		manager_free_ = true;
@@ -444,8 +444,8 @@ bool Restaurant::DeleteClientFromQueue(Client* client)
 		if (*it == client)
 		{
 			queue_table_->erase(it); //delete from list
-			Statistics::AddSizeQueueTable(simulation_time_ - Statistics::reference_time_queue_table_, false); //statistics
-			Statistics::reference_time_queue_table_ = simulation_time_;
+			statistics::AddSizeQueueTable(simulation_time_ - statistics::reference_time_queue_table_, false); //statistics
+			statistics::reference_time_queue_table_ = simulation_time_;
 			Show();
 			return true;
 		}
@@ -455,8 +455,8 @@ bool Restaurant::DeleteClientFromQueue(Client* client)
 		if (*it == client)
 		{
 			queue_checkout_->erase(it); //delete from list
-			Statistics::AddSizeQueueCheckout(simulation_time_ - Statistics::reference_time_queue_checkout_, false); //statistics
-			Statistics::reference_time_queue_checkout_ = simulation_time_; //statistics
+			statistics::AddSizeQueueCheckout(simulation_time_ - statistics::reference_time_queue_checkout_, false); //statistics
+			statistics::reference_time_queue_checkout_ = simulation_time_; //statistics
 			Show();
 			return true;
 		}
@@ -478,9 +478,24 @@ void Restaurant::ShowState()
 	using std::cout;
 	using std::endl;
 	cout << "Restaurant:\n";
-	cout << "Free buffet seats: " << buffet_free_seats_ << " Free tables(2): " << free_tables_[0] << " Free tables(3): " << free_tables_[1] << " Free tables(4): " <<
-		free_tables_[2] << " Free checkouts: " << free_checkouts_ << " Free waiters: " << free_waiters_ << " Manager: " << (manager_free_ ? "FREE\n" : "BUSY\n");
-	cout << "Clients in system: " << GetNumberPeople() << endl;
+	cout.width(20);
+	cout << "Free buffet seats: " << buffet_free_seats_ << endl;
+	cout.width(20); 
+	cout << "Free tables(2): " << free_tables_[0] << endl;
+	cout.width(20); 
+	cout << "Free tables(3): " << free_tables_[1] << endl;
+	cout.width(20); 
+	cout << "Free tables(4): " << free_tables_[2] << endl;
+	cout.width(20); 
+	cout << "Free checkouts: " << free_checkouts_ << endl;
+	cout.width(20); 
+	cout << "Free waiters: " << free_waiters_ << endl;
+	cout.width(20); 
+	cout << "Manager: " << (manager_free_ ? "FREE\n" : "BUSY\n") << endl;
+	cout.width(20); 
+	cout << "Groups of clients in system: " << clients_->size() << endl;
+	cout.width(20);
+	cout << "Groups of clients at tables: " << kNumberTables2 + kNumberTables3 + kNumberTables4 - free_tables_[0] - free_tables_[1] - free_tables_[2] << endl;
 }
 
 void Restaurant::Show()

@@ -6,14 +6,14 @@
 
 TableTaken::TableTaken(Restaurant & restaurant, Client * client) : Event("TableTaken", restaurant, client)
 {
-	SetTime(Generators::s_);
+	SetTime(generators::s_);
 }
 
 void TableTaken::Execute()
 {
-	if(GetRestaurant()->AddToDrinksQueue(GetClient())) //if waiter is free
+	if(restaurant_->AddToDrinksQueue(client_)) //if waiter is free
 	{
-		Statistics::AddTimeWaitingWaiter(0);
-		GetRestaurant()->GetEventList()->AddToEventList(new ServedDrinks(*GetRestaurant(), GetClient())); //Plan next event
+		statistics::AddTimeWaitingWaiter(0);
+		restaurant_->GetEventList()->AddToEventList(new ServedDrinks(*restaurant_, client_)); //Plan next event
 	}
 }
