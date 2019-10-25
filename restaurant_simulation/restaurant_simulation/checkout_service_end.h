@@ -3,7 +3,7 @@
 class CheckoutServiceEnd : public Event
 {
 public:
-	CheckoutServiceEnd(Restaurant &, Client *);
+	CheckoutServiceEnd(Restaurant &, std::shared_ptr<Client>);
 	void Execute() override;
 };
 

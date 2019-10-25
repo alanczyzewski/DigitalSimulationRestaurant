@@ -20,7 +20,7 @@ namespace generators
 	static double p4_ = 0.19;
 	static int mi_a_ = 330; //arrival new clients
 	static int sigma_a_ = 20; //arrival new clients
-	static int s_ = 400; //time manager
+	static int s_ = 70; //time manager
 	static int sigma_b_ = 100; //time buffet
 	static int lambda_n_ = 1100; //time serving drinks
 	static int lambda_j_ = 2400; //time serving food

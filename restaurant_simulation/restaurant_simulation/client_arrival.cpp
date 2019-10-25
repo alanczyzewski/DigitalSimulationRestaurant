@@ -6,7 +6,7 @@
 #include "statistics.h"
 
 
-ClientArrival::ClientArrival(Restaurant & restaurant) : Event("ClientArrival", restaurant, new Client())
+ClientArrival::ClientArrival(Restaurant & restaurant) : Event("ClientArrival", restaurant, static_cast<std::shared_ptr<Client>>(new Client()))
 {
 	SetTime(generators::Normal(generators::mi_a_, generators::sigma_a_));
 }
@@ -24,21 +24,10 @@ void ClientArrival::Execute()
 	restaurant_->AddClientToSystem(client_);
 	//2
 	double random = generators::Uniform();
-	if (random < 0.5) //buffet
-	{
-		if (restaurant_->AddToBuffetQueue(client_)) //if true: client went to buffet, not queue
-		{
-			restaurant_->GetEventList()->AddToEventList(new BuffetServiceEnd(*restaurant_, client_));
-		}
-	}
-	else //tables
-	{
-		if (restaurant_->AddToTableQueue(client_)) //if true: client went to table, not queue
-		{
-			statistics::AddTimeWaitingTable(0);
-			restaurant_->GetEventList()->AddToEventList(new TableTaken(*restaurant_, client_));
-		}
-	}
+	if (random < 0.5)
+		restaurant_->ChooseBuffet(client_);
+	else
+		restaurant_->ChooseTable(client_);
 	//3
-	restaurant_->GetEventList()->AddToEventList(new ClientArrival(*restaurant_));
+	restaurant_->event_list_->AddToEventList(static_cast<std::shared_ptr<Event>> (new ClientArrival(*restaurant_)));
 }

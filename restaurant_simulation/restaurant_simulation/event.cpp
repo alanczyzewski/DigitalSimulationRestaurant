@@ -22,9 +22,7 @@ std::ostream & operator<<(std::ostream & os, const Event & eve)
 	os << eve.event_name_;
 	if (eve.client_)
 	{
-		os << "  Client ID: " << std::right;
-		os.width(5);
-		os << eve.client_->GetId() << "  Run away? " << (eve.client_->GetRunAway() ? "YES" : "NO");
+		os << "  " << *(eve.client_);
 	}
 	return os;
 }

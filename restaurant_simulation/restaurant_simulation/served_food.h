@@ -3,7 +3,7 @@
 class ServedFood : public Event
 {
 public:
-	ServedFood(Restaurant &, Client *);
+	ServedFood(Restaurant &, std::shared_ptr<Client>);
 	void Execute() override;
 };
 

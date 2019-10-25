@@ -12,5 +12,5 @@ AlarmRang::AlarmRang(Restaurant & restaurant) : Event("AlarmRang", restaurant)
 void AlarmRang::Execute()
 {
 	restaurant_->Alarm();
-	restaurant_->GetEventList()->AddToEventList(new AlarmRang(*GetRestaurant()));
+	restaurant_->event_list_->AddToEventList(static_cast<std::shared_ptr<Event>> (new AlarmRang(*GetRestaurant())));
 }

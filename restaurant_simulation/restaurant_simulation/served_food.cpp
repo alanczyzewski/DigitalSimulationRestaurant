@@ -3,13 +3,13 @@
 #include "consumption_end.h"
 
 
-ServedFood::ServedFood(Restaurant & restaurant, Client * client) : Event("ServedDrinks", restaurant, client)
+ServedFood::ServedFood(Restaurant & restaurant, std::shared_ptr<Client> client) : Event("ServedDrinks", restaurant, client)
 {
 	SetTime(client_->GetTimeServiceMeals());
 }
 
 void ServedFood::Execute()
 {
-	restaurant_->GetEventList()->AddToEventList(new ConsumptionEnd(*restaurant_, client_));
-	restaurant_->StartConsumption(client_);
+	restaurant_->event_list_->AddToEventList(static_cast<std::shared_ptr<Event>> (new ConsumptionEnd(*restaurant_, client_)));
+	restaurant_->StartConsumption();
 }

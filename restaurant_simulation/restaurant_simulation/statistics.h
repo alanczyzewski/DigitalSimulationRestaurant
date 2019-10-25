@@ -35,6 +35,7 @@ namespace statistics
 	void AddSizeQueueCheckout(double, bool);
 	void ShowStatistics();
 	void Reset(double);
+	void Reset();
 
 }
 

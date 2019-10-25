@@ -3,7 +3,7 @@
 class TableTaken : public Event
 {
 public:
-	TableTaken(Restaurant &, Client *);
+	TableTaken(Restaurant &, std::shared_ptr<Client>);
 	void Execute() override;
 };
 

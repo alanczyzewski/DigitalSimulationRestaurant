@@ -7,7 +7,7 @@
 class BuffetServiceEnd : public Event
 {
 public:
-	BuffetServiceEnd(Restaurant &, Client *);
+	BuffetServiceEnd(Restaurant &, std::shared_ptr<Client>);
 	void Execute() override;
 };
 

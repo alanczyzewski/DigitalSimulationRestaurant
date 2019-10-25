@@ -4,81 +4,69 @@
 #include "alarm_rang.h"
 
 
-EventList::EventList()
-{
-	event_list_ = new std::list<Event*>();
-}
+EventList::EventList(){}
 
 EventList::~EventList()
-{
-	while (!(event_list_->empty()))
+{/*
+	while (!(event_list_.empty()))
 	{
-		Event *event = event_list_->front();
-		event_list_->pop_front();
-		delete event;
+		event_list_.pop_front();
 	}
-	delete event_list_;
+	*/
 }
 
-void EventList::AddToEventList(Event* eve)
+void EventList::AddToEventList(std::shared_ptr<Event> eve)
 {
-	if (!(event_list_->empty())) //if not empty
+	if (!(event_list_.empty())) //if not empty
 	{
-		it_ = event_list_->begin();
-		while (it_ != event_list_->end())
+		auto iterator_list = event_list_.begin();
+		while (iterator_list != event_list_.end())
 		{
-			if (*eve < **(it_))
+			if (*eve < **(iterator_list))
 				break;
 			else
-				std::advance(it_, 1);
+				std::advance(iterator_list, 1);
 		}
-		event_list_->insert(it_, eve);
+		event_list_.insert(iterator_list, eve);
 	}
 	else
-	{
-		event_list_->push_back(eve);
-	}
-	it_ = event_list_->begin();
+		event_list_.push_back(eve);
 }
 
 void EventList::ShowEventList()
 {
-	using std::cout;
-	using std::endl;
-	cout << "Event List:\n";
-	if (!(event_list_->empty()))
-		for (auto &i : *event_list_)
-			cout << *i << endl;
+	std::cout << "Event List:\n";
+	if (!(event_list_.empty()))
+		for (auto &i : event_list_)
+			std::cout << *i << std::endl;
 	else
-		cout << "EMPTY\n";
+		std::cout << "EMPTY\n";
 }
 
-Event* EventList::First()
+std::shared_ptr<Event> EventList::First()
 {
-	if (!(event_list_->empty()))
-		return event_list_->front();
+	if (!(event_list_.empty()))
+		return event_list_.front();
 	return nullptr;
 }
 void EventList::DeleteFirst()
 {
-	Event * event = First();
+	std::shared_ptr<Event> event = First();
 	if (event)
-	{
-		event_list_->pop_front();
-		delete event;
-	}
+		event_list_.pop_front();
 }
 
-Event * EventList::DeleteEvent(Client* client)
+std::shared_ptr<Event> EventList::DeleteEvent(std::shared_ptr<Client> client)
 {
-	Event * event = nullptr;
-	for (auto it = event_list_->begin(); it != event_list_->end();)
+	std::shared_ptr<Event> event = nullptr;
+	for (auto iterator_list = event_list_.begin(); iterator_list != event_list_.end(); ++iterator_list)
 	{
-		++it; //because first event on the list is AlarmRang
-		if ((*it)->GetClient() == client)
+		if (static_cast<std::string>(**iterator_list) == "AlarmRang")
+			continue;
+		if ((*iterator_list)->GetClient() == client)
 		{
-			event = *it;
-			event_list_->erase(it); //delete event from list
+			event = *iterator_list;
+			event_list_.erase(iterator_list); //delete event from list
 			return event;
 		}
 	}

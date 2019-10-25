@@ -34,6 +34,13 @@ Client::Client() : kId(++id_iterator_)
 	time_start_waiter_ = 0;
 }
 
+std::ostream & operator<<(std::ostream & os, const Client & client)
+{
+	os << "Client ID: " << std::right;
+	os.width(5);
+	os << client.kId << " Number of people: " << client.number_people_ << " Run away? " << (client.run_away_ ? "YES" : "NO");
+	return os;
+}
 
 /*
 void Client::ShowInfo()

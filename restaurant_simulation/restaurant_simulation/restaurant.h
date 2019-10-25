@@ -10,45 +10,50 @@ class Restaurant
 public:
 	Restaurant();
 	~Restaurant();
-	void StartSimulation();
+	std::shared_ptr<EventList> event_list_;
 	double GetTime() { return simulation_time_; }
+	void SetStartPoint();
 	void SetTime();
-	EventList * GetEventList();
+	void ExecuteFirstEvent();
+	void DeleteFirstEvent();
 
-	void AddClientToSystem(Client * client);
-	bool AddToBuffetQueue(Client * client);
-	void DeleteClientFromBuffet(Client * client);
-	void AddToBuffetIfPossible();
-	Client * ClientToAddBuffet();
-	bool AddToCheckoutQueue(Client * client);
-	void DeleteClientFromSystem(Client * client);
-	void AddToCheckoutIfPossible();
-	bool AddToTableQueue(Client * client);
-	bool AddToDrinksQueue(Client * client);
-	void AddToMealsQueue(Client * client);
+	void AddClientToSystem(std::shared_ptr<Client>);
+	void ChooseBuffet(std::shared_ptr<Client>);
+	bool AddToBuffet();
+	void ChooseTable(std::shared_ptr<Client>);
+	void AddToTable();
+	void TakeTable(std::shared_ptr<Client>);
+	void AddToMealsQueue(std::shared_ptr<Client>);
 	void ServiceFirstClient();
-	void StartConsumption(Client * client);
-	void DeleteClientFromTable(Client * client);
-	void AddClientToTable();
-	Client * ClientToAddTable();
+	void StartConsumption();
+	void DeleteClientFromTable(std::shared_ptr<Client>);
+	void FinishConsumption(std::shared_ptr<Client>);
+	void DeleteClientFromSystem(std::shared_ptr<Client>);
+	void AddToCheckout();
+
+
+	void DeleteClientFromBuffet(std::shared_ptr<Client>);
+	
+	
+	
+	
+
 	void Alarm();
-	bool DeleteClientFromEvent(Client *);
-	bool DeleteClientFromQueue(Client *);
+	bool DeleteClientFromEvent(std::shared_ptr<Client>);
+	bool DeleteClientFromQueue(std::shared_ptr<Client>);
 
 	void ShowState();
-	int GetNumberPeople() { return clients_->size(); }
-	int GetSizeQueueTable() { return queue_table_->size(); }
-	int GetSizeQueueCheckout() { return queue_checkout_->size(); }
+	int GetNumberPeople() { return clients_.size(); }
+	int GetSizeQueueTable() { return queue_table_.size(); }
+	int GetSizeQueueCheckout() { return queue_checkout_.size(); }
 
-	void Show();
 private:
 	double simulation_time_;
-	EventList * event_list_;
-	std::list<Client*> * clients_; //all clients currently located in restaurant
-	std::list<Client*> * queue_buffet_;
-	std::list<Client*> * queue_checkout_;
-	std::list<Client*> * queue_table_;
-	std::list<Client*> * queue_waiter_; //clients waiting for waiter
+	std::list<std::shared_ptr<Client>> clients_; //all clients currently located in restaurant
+	std::list<std::shared_ptr<Client>> queue_buffet_;
+	std::list<std::shared_ptr<Client>> queue_checkout_;
+	std::list<std::shared_ptr<Client>> queue_table_;
+	std::list<std::shared_ptr<Client>> queue_waiter_; //clients waiting for waiter
 
 	const int kBuffetSeats = generators::b_;
 	const int kNumberTables2 = generators::n2_; // (2-person)

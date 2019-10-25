@@ -87,4 +87,28 @@ namespace statistics
 		sum_times_queue_checkout_ = 0;
 		reference_time_queue_checkout_ = simulation_time;
 	}
+	void Reset()
+	{
+		average_time_waiting_table_ = 0;
+		sum_times_waiting_table_ = 0;
+		number_times_waiting_table_ = 0;
+
+		average_size_queue_table_ = 0;
+		sum_times_queue_table_ = 0;
+		weighted_sum_times_queue_table_ = 0;
+		current_size_queue_table_ = 0;
+		max_size_queue_table_ = 0;
+		reference_time_queue_table_ = 0;
+
+		average_time_waiting_waiter_ = 0;
+		sum_times_waiting_waiter_ = 0;
+		number_times_waiting_waiter_ = 0;
+
+		average_size_queue_checkout_ = 0;
+		sum_times_queue_checkout_ = 0;
+		weighted_sum_times_queue_checkout_ = 0;
+		current_size_queue_checkout_ = 0;
+		max_size_queue_checkout_ = 0;
+		reference_time_queue_checkout_ = 0;
+	}
 }

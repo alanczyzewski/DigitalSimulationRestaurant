@@ -3,7 +3,7 @@
 #include "checkout_service_end.h"
 
 
-BuffetServiceEnd::BuffetServiceEnd(Restaurant & restaurant, Client * client) : Event("BuffetServiceEnd", restaurant, client)
+BuffetServiceEnd::BuffetServiceEnd(Restaurant & restaurant, std::shared_ptr<Client> client) : Event("BuffetServiceEnd", restaurant, client)
 {
 	SetTime(client_->GetTimeBuffet());
 }
@@ -16,12 +16,5 @@ void BuffetServiceEnd::Execute()
 	3. Place the client at the end of the queue to the checkout.
 	*/
 	//1
-	restaurant_->DeleteClientFromBuffet(GetClient());
-	//2
-	restaurant_->AddToBuffetIfPossible();
-	//3
-	if(restaurant_->AddToCheckoutQueue(GetClient()))
-	{
-		restaurant_->GetEventList()->AddToEventList(new CheckoutServiceEnd(*GetRestaurant(), GetClient()));
-	}
+	restaurant_->DeleteClientFromBuffet(client_);
 }

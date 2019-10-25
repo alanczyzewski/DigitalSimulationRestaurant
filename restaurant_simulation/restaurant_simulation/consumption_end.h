@@ -3,7 +3,7 @@
 class ConsumptionEnd : public Event
 {
 public:
-	ConsumptionEnd(Restaurant &, Client *);
+	ConsumptionEnd(Restaurant &, std::shared_ptr<Client>);
 	void Execute() override;
 };
 
