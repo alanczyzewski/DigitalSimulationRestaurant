@@ -10,11 +10,5 @@ BuffetServiceEnd::BuffetServiceEnd(Restaurant & restaurant, std::shared_ptr<Clie
 
 void BuffetServiceEnd::Execute()
 {
-	/*
-	1. Leave place at the buffet and
-	2. Add people to free seats
-	3. Place the client at the end of the queue to the checkout.
-	*/
-	//1
 	restaurant_->DeleteClientFromBuffet(client_);
 }

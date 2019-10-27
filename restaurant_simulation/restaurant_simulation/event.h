@@ -10,7 +10,7 @@ class EventList;
 class Event
 {
 public:
-	Event(std::string name, Restaurant & restaurant, std::shared_ptr<Client> client = nullptr) : event_name_(name), restaurant_(&restaurant), client_(client) {}
+	Event(std::string name, Restaurant & restaurant, std::shared_ptr<Client> client) : event_name_(name), restaurant_(&restaurant), client_(client) {}
 	virtual ~Event() {}
 	virtual void Execute() = 0;
 	void SetTime(double time);

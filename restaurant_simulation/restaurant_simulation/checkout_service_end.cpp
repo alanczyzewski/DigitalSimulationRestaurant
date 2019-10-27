@@ -9,9 +9,5 @@ CheckoutServiceEnd::CheckoutServiceEnd(Restaurant & restaurant, std::shared_ptr<
 
 void CheckoutServiceEnd::Execute()
 {
-	/*
-	1. Release the checkout and delete the client from system
-	2. Add people to free checkout
-	*/
 	restaurant_->DeleteClientFromSystem(client_);
 }

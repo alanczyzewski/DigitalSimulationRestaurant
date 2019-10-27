@@ -1,19 +1,10 @@
 #include "stdafx.h"
 #include <iostream>
 #include "event_list.h"
-#include "alarm_rang.h"
 
 
 EventList::EventList(){}
-
-EventList::~EventList()
-{/*
-	while (!(event_list_.empty()))
-	{
-		event_list_.pop_front();
-	}
-	*/
-}
+EventList::~EventList(){}
 
 void EventList::AddToEventList(std::shared_ptr<Event> eve)
 {
@@ -33,14 +24,13 @@ void EventList::AddToEventList(std::shared_ptr<Event> eve)
 		event_list_.push_back(eve);
 }
 
-void EventList::ShowEventList()
+std::ostream & operator<<(std::ostream & os, const EventList & ev)
 {
-	std::cout << "Event List:\n";
-	if (!(event_list_.empty()))
-		for (auto &i : event_list_)
-			std::cout << *i << std::endl;
-	else
-		std::cout << "EMPTY\n";
+	os << "Event List:\n";
+	if (!(ev.event_list_.empty()))
+		for (auto &i : ev.event_list_)
+			os << *i << std::endl;
+	return os;
 }
 
 std::shared_ptr<Event> EventList::First()
@@ -51,24 +41,6 @@ std::shared_ptr<Event> EventList::First()
 }
 void EventList::DeleteFirst()
 {
-	std::shared_ptr<Event> event = First();
-	if (event)
+	if (First())
 		event_list_.pop_front();
-}
-
-std::shared_ptr<Event> EventList::DeleteEvent(std::shared_ptr<Client> client)
-{
-	std::shared_ptr<Event> event = nullptr;
-	for (auto iterator_list = event_list_.begin(); iterator_list != event_list_.end(); ++iterator_list)
-	{
-		if (static_cast<std::string>(**iterator_list) == "AlarmRang")
-			continue;
-		if ((*iterator_list)->GetClient() == client)
-		{
-			event = *iterator_list;
-			event_list_.erase(iterator_list); //delete event from list
-			return event;
-		}
-	}
-	return nullptr;
 }

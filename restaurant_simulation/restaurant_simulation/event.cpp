@@ -21,8 +21,6 @@ std::ostream & operator<<(std::ostream & os, const Event & eve)
 	os.width(18);
 	os << eve.event_name_;
 	if (eve.client_)
-	{
 		os << "  " << *(eve.client_);
-	}
 	return os;
 }

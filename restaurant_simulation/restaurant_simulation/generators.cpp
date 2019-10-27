@@ -9,10 +9,10 @@ namespace generators
 		const auto a = 16807;
 		const auto q = 127773;
 		const auto r = 2836;
-		auto h = seed_ / q;
-		seed_ = a * (seed_ - q * h) - r * h;
-		if (seed_ < 0) seed_ += m;
-		return seed_ / m;
+		auto h = seed / q;
+		seed = a * (seed - q * h) - r * h;
+		if (seed < 0) seed += m;
+		return seed / m;
 	}
 
 	double Exponential(const double avg)
@@ -25,9 +25,7 @@ namespace generators
 		double x = 0;
 		const auto n = 12;
 		for (auto i = 0; i < n; i++)
-		{
 			x += Uniform();
-		}
 		return ((x - (double(n) / 2))*(variance * 12 / n)) + average;
 	}
 }

@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="alarm_rang.h" />
     <ClInclude Include="buffet_service_end.h" />
     <ClInclude Include="checkout_service_end.h" />
     <ClInclude Include="client.h" />
@@ -166,7 +165,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="alarm_rang.cpp" />
     <ClCompile Include="buffet_service_end.cpp" />
     <ClCompile Include="checkout_service_end.cpp" />
     <ClCompile Include="client.cpp" />
